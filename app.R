@@ -63,26 +63,26 @@ server <- function(input, output) {
   output$salaryplot <- renderPlot({
       p <- d() %>%
         ggplot(aes(x=year, y=adjust21, color=district))+
-        scale_y_continuous(labels=scales::dollar_format())+
+        # scale_y_continuous(labels=scales::dollar_format())+
         scale_x_continuous(limits=c(1997, 2021), breaks=seq(1997,2021, 3))+
-        ggtitle("Average Teacher Salary in 2021 dollars")+
-        
-        theme_ipsum()+
+        # ggtitle("Average Teacher Salary in 2021 dollars")+
+        geom_line()+
+        theme_ipsum_rc()+
         theme(
           axis.title.y = element_blank(), 
           axis.title.x = element_blank(), 
           legend.title = element_blank())
         
-        if (input$model == "Linear") {
-          p + geom_smooth(method = "lm", se = FALSE)
-        } else if (input$model == "Quadratic") {
-          p + geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) 
-        } else if (input$model == "Cubic") {
-          p + geom_smooth(method = "lm", formula = y ~ poly(x, 3), se = FALSE) 
-        } else if (input$model == "Smooth") {
-          p + geom_smooth(se = FALSE)
-        } else {
-          p + geom_line()
+        # if (input$model == "Linear") {
+        #   p + geom_smooth(method = "lm", se = FALSE)
+        # } else if (input$model == "Quadratic") {
+        #   p + geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE) 
+        # } else if (input$model == "Cubic") {
+        #   p + geom_smooth(method = "lm", formula = y ~ poly(x, 3), se = FALSE) 
+        # } else if (input$model == "Smooth") {
+        #   p + geom_smooth(se = FALSE)
+        # } else {
+          p
         }   
     })
 }
